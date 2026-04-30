@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Utsho Academy is a premium online course platform by Tanzim Ahmed Utsho with practical courses, free enrollments, discounts, reviews, profile progress tracking, and live chat support."
+    />
     <title>Utsho Academy | Premium Online Courses</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -61,8 +65,8 @@
           </div>
         </div>
         <p class="mb-5 text-sm leading-6 text-white/75">
-          Age registration korte hobe. Registration thakle sudhu email/password
-          diye login kore course dashboard e jawa jabe.
+          Create an account first. If you already have one, log in with your
+          registered email and password to access the course dashboard.
         </p>
         <div
           class="mb-5 grid grid-cols-2 gap-2 rounded-lg border border-white/15 bg-white/10 p-1"
@@ -188,6 +192,7 @@
           class="absolute inset-0 h-full w-full object-cover opacity-40"
           src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=80"
           alt="Students learning online"
+          fetchpriority="high"
         />
         <div
           class="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,17,20,.94),rgba(16,17,20,.68),rgba(16,17,20,.25))]"
@@ -208,9 +213,10 @@
               Career-ready courses, live skill paths, and member-only offers.
             </h2>
             <p class="mt-6 max-w-2xl text-lg leading-8 text-white/78">
-              2023 theke Utsho Academy practical web, design, freelancing, AI,
-              marketing and business course niye cholche. Login korlei course
-              enroll, free course unlock, discount claim sob ek jaygay.
+              Since 2023, Utsho Academy has helped learners build practical
+              skills in web development, design, freelancing, AI, marketing,
+              and business. Log in to enroll, unlock free courses, and claim
+              member-only discounts.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
               <a
@@ -337,8 +343,8 @@
             Free courses are ready to enroll.
           </h2>
           <p class="mt-4 text-black/60">
-            Beginner der jonno free course ache. Enroll korar por dashboard e
-            progress track hobe.
+            Free starter courses are available for beginners. Once you enroll,
+            your learning progress will appear in your dashboard.
           </p>
           <div class="mt-6 grid grid-cols-3 gap-3">
             <div class="rounded-lg bg-[#eefaf6] p-4">
@@ -380,7 +386,7 @@
                 <option value="2">2 stars</option>
                 <option value="1">1 star</option>
               </select>
-              <textarea id="reviewText" required rows="5" class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-semibold outline-none focus:border-gold" placeholder="Course ta niye apnar feedback likhun"></textarea>
+              <textarea id="reviewText" required rows="5" class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-semibold outline-none focus:border-gold" placeholder="Write your feedback about this course"></textarea>
               <button type="submit" class="flex items-center justify-center gap-2 rounded-lg bg-ink px-5 py-3 font-black text-white transition hover:bg-gold hover:text-ink">
                 <i data-lucide="send" class="h-5 w-5"></i>
                 Submit Review
@@ -517,7 +523,7 @@
         </div>
         <div id="chatMessages" class="h-72 space-y-3 overflow-y-auto p-4"></div>
         <form id="chatForm" class="flex gap-2 border-t border-white/10 p-3">
-          <input id="chatInput" required class="min-w-0 flex-1 rounded-lg border border-white/10 bg-white/10 px-3 py-3 text-sm font-semibold text-white outline-none placeholder:text-white/35 focus:border-gold" placeholder="Message likhun" />
+          <input id="chatInput" required class="min-w-0 flex-1 rounded-lg border border-white/10 bg-white/10 px-3 py-3 text-sm font-semibold text-white outline-none placeholder:text-white/35 focus:border-gold" placeholder="Write a message" />
           <button class="grid h-11 w-11 place-items-center rounded-lg bg-gold text-ink" title="Send message">
             <i data-lucide="send" class="h-5 w-5"></i>
           </button>

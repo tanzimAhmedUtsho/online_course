@@ -114,13 +114,13 @@ const ads = [
     title: "Domain + Hosting Bundle",
     tag: "Sponsor",
     icon: "server",
-    text: "Course student der jonno starter hosting package e special rate.",
+    text: "Special starter hosting rates for course students.",
   },
   {
     title: "Laptop Upgrade Deal",
     tag: "Tech Ad",
     icon: "laptop",
-    text: "Coding, design and video editing er jonno selected laptop offer.",
+    text: "Selected laptop offers for coding, design, and video editing.",
   },
   {
     title: "Certificate Printing",
@@ -132,19 +132,19 @@ const ads = [
     title: "Skill Test Challenge",
     tag: "Promo",
     icon: "target",
-    text: "Weekly quiz e top 10 student pachhe free premium class.",
+    text: "Top performers in the weekly quiz get a free premium class.",
   },
   {
     title: "Portfolio Review",
     tag: "Mentor Ad",
     icon: "briefcase",
-    text: "Expert mentor diye CV, portfolio and gig profile review.",
+    text: "Get expert mentor feedback on your CV, portfolio, and gig profile.",
   },
   {
     title: "Internet Pack Offer",
     tag: "Partner",
     icon: "wifi",
-    text: "Online class streaming er jonno student-friendly data pack.",
+    text: "Student-friendly internet packs for online class streaming.",
   },
 ];
 
@@ -265,8 +265,8 @@ function handleLogin(event) {
   ) {
     const message =
       authMode === "register"
-        ? "Name, valid email and 4 character password diye register korun."
-        : "Valid email and minimum 4 character password din.";
+        ? "Enter your name, a valid email, and a password with at least 4 characters."
+        : "Enter a valid email and a password with at least 4 characters.";
     showAuthError(message);
     return;
   }
@@ -279,7 +279,7 @@ function handleLogin(event) {
   if (authMode === "register") {
     if (existingUser) {
       showAuthError(
-        "Ei email already registered. Login tab theke login korun.",
+        "This email is already registered. Please use the Login tab.",
       );
       setAuthMode("login");
       return;
@@ -291,13 +291,13 @@ function handleLogin(event) {
     setAuthMode("login");
     document.getElementById("emailInput").value = email;
     document.getElementById("passwordInput").value = "";
-    showToast("Registration complete. Ebar login korun");
+    showToast("Registration complete. Please log in now");
     return;
   }
 
   if (authMode === "forgot") {
     if (!existingUser) {
-      showAuthError("Ei email registered na. Age registration korun.");
+      showAuthError("This email is not registered. Please create an account first.");
       setAuthMode("register");
       return;
     }
@@ -307,18 +307,18 @@ function handleLogin(event) {
     setAuthMode("login");
     document.getElementById("emailInput").value = existingUser.email;
     document.getElementById("passwordInput").value = "";
-    showToast("Password reset complete. Ebar login korun");
+    showToast("Password reset complete. Please log in now");
     return;
   }
 
   if (!existingUser) {
-    showAuthError("Ei email registered na. Age registration korun.");
+    showAuthError("This email is not registered. Please create an account first.");
     setAuthMode("register");
     return;
   }
 
   if (existingUser.password !== password) {
-    showAuthError("Password match koreni. Registered password diye try korun.");
+    showAuthError("The password does not match. Please try your registered password.");
     return;
   }
 
@@ -509,7 +509,7 @@ function renderProgressChart() {
       <div class="rounded-lg border border-white/10 bg-white/10 p-6 text-center">
         <i data-lucide="bar-chart-3" class="mx-auto h-10 w-10 text-gold"></i>
         <p class="mt-3 font-black">No enrolled course yet</p>
-        <p class="mt-1 text-sm font-semibold text-white/50">Enroll korlei ekhane progress chart dekhabe.</p>
+        <p class="mt-1 text-sm font-semibold text-white/50">Your progress chart will appear here after you enroll.</p>
       </div>
     `;
     refreshIcons();
@@ -551,14 +551,14 @@ function renderReviews() {
       name: "Nusrat Jahan",
       course: "Tailwind CSS Premium UI Design",
       rating: 5,
-      text: "Design section onek clear. Project kore kore practice kora jay.",
+      text: "The design lessons are clear, practical, and easy to follow through projects.",
       date: "2026-04-12",
     },
     {
       name: "Rakib Hasan",
       course: "Complete HTML, CSS & JavaScript Mastery",
       rating: 5,
-      text: "Beginner theke portfolio level porjonto path ta helpful.",
+      text: "The learning path is helpful from beginner basics to portfolio-ready projects.",
       date: "2026-04-18",
     },
   ];
@@ -634,7 +634,7 @@ function courseCard(course) {
   return `
     <article class="course-card" data-category="${course.category}">
       <div class="relative">
-        <img src="${course.image}" alt="${course.title}" />
+        <img src="${course.image}" alt="${course.title}" loading="lazy" />
         <div class="absolute left-3 top-3 flex gap-2">
           <span class="badge ${isFree ? "bg-mint text-ink" : "bg-gold text-ink"}">${isFree ? "Free" : `${course.discount}% Off`}</span>
         </div>
@@ -693,7 +693,7 @@ function renderChat() {
   const messages = getChatMessages();
   const starter = {
     from: "support",
-    text: "Assalamu alaikum. Course, payment ba certificate niye help lagle message din.",
+    text: "Hello. Send us a message if you need help with courses, payments, or certificates.",
   };
   const visibleMessages = messages.length ? messages : [starter];
   box.innerHTML = visibleMessages
@@ -715,7 +715,7 @@ function handleChatSubmit(event) {
   messages.push({ from: "user", text });
   messages.push({
     from: "support",
-    text: "Thanks. Amader support team khub taratari reply korbe. Urgent hole +880 1756-467670 e call korun.",
+    text: "Thanks. Our support team will reply soon. For urgent help, call +880 1756-467670.",
   });
   saveChatMessages(messages);
   input.value = "";
