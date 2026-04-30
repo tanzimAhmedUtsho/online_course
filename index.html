@@ -99,9 +99,7 @@
             />
           </label>
           <label class="block">
-            <span class="mb-2 block text-sm font-semibold text-white/80"
-              >Password</span
-            >
+            <span id="passwordLabel" class="mb-2 block text-sm font-semibold text-white/80">Password</span>
             <input
               id="passwordInput"
               type="password"
@@ -110,6 +108,11 @@
               placeholder="Minimum 4 characters"
             />
           </label>
+          <div id="forgotRow" class="hidden text-right">
+            <button id="forgotPasswordBtn" type="button" class="text-sm font-black text-gold transition hover:text-[#e6bd68]">
+              Forgot password?
+            </button>
+          </div>
           <p
             id="loginError"
             class="hidden rounded-lg bg-fire/15 px-4 py-3 text-sm text-red-100"
@@ -122,6 +125,9 @@
           >
             <i id="authButtonIcon" data-lucide="user-plus" class="h-5 w-5"></i>
             <span id="authButtonText">Create Account</span>
+          </button>
+          <button id="backToLoginBtn" type="button" class="hidden w-full rounded-lg border border-white/15 bg-white/10 px-5 py-3 font-black text-white transition hover:bg-white/20">
+            Back to Login
           </button>
         </form>
       </div>

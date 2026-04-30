@@ -131,6 +131,8 @@ function init() {
   document.getElementById("logoutBtn").addEventListener("click", handleLogout);
   document.getElementById("registerTab").addEventListener("click", () => setAuthMode("register"));
   document.getElementById("loginTab").addEventListener("click", () => setAuthMode("login"));
+  document.getElementById("forgotPasswordBtn").addEventListener("click", () => setAuthMode("forgot"));
+  document.getElementById("backToLoginBtn").addEventListener("click", () => setAuthMode("login"));
   document.getElementById("searchInput").addEventListener("input", (event) => {
     searchTerm = event.target.value.toLowerCase();
     renderCourses();
@@ -161,12 +163,13 @@ function handleLogin(event) {
   const error = document.getElementById("loginError");
 
   if (!email.includes("@") || password.length < 4 || (authMode === "register" && name.length < 2)) {
-    showAuthError(authMode === "register" ? "Name, valid email and 4 character password diye register korun." : "Valid email and password din.");
+    const message = authMode === "register" ? "Name, valid email and 4 character password diye register korun." : "Valid email and minimum 4 character password din.";
+    showAuthError(message);
     return;
   }
 
   const users = getUsers();
-  const existingUser = users.find((user) => user.email === email);
+  const existingUser = users.find((user) => user.email.toLowerCase() === email.toLowerCase());
 
   if (authMode === "register") {
     if (existingUser) {
@@ -182,6 +185,22 @@ function handleLogin(event) {
     document.getElementById("emailInput").value = email;
     document.getElementById("passwordInput").value = "";
     showToast("Registration complete. Ebar login korun");
+    return;
+  }
+
+  if (authMode === "forgot") {
+    if (!existingUser) {
+      showAuthError("Ei email registered na. Age registration korun.");
+      setAuthMode("register");
+      return;
+    }
+
+    existingUser.password = password;
+    saveUsers(users);
+    setAuthMode("login");
+    document.getElementById("emailInput").value = existingUser.email;
+    document.getElementById("passwordInput").value = "";
+    showToast("Password reset complete. Ebar login korun");
     return;
   }
 
@@ -223,13 +242,18 @@ function unlockApp(user) {
 function setAuthMode(mode) {
   authMode = mode;
   const isRegister = mode === "register";
+  const isForgot = mode === "forgot";
   document.getElementById("registerTab").classList.toggle("active", isRegister);
-  document.getElementById("loginTab").classList.toggle("active", !isRegister);
+  document.getElementById("loginTab").classList.toggle("active", mode === "login");
   document.getElementById("nameField").classList.toggle("hidden", !isRegister);
   document.getElementById("nameInput").required = isRegister;
-  document.getElementById("authTitle").textContent = isRegister ? "Register first" : "Login required";
-  document.getElementById("authButtonText").textContent = isRegister ? "Create Account" : "Login & Unlock";
-  document.getElementById("authButtonIcon").setAttribute("data-lucide", isRegister ? "user-plus" : "log-in");
+  document.getElementById("forgotRow").classList.toggle("hidden", mode !== "login");
+  document.getElementById("backToLoginBtn").classList.toggle("hidden", !isForgot);
+  document.getElementById("authTitle").textContent = isRegister ? "Register first" : isForgot ? "Reset password" : "Login required";
+  document.getElementById("passwordLabel").textContent = isForgot ? "New password" : "Password";
+  document.getElementById("passwordInput").placeholder = isForgot ? "Set a new password" : "Minimum 4 characters";
+  document.getElementById("authButtonText").textContent = isRegister ? "Create Account" : isForgot ? "Reset Password" : "Login & Unlock";
+  document.getElementById("authButtonIcon").setAttribute("data-lucide", isRegister ? "user-plus" : isForgot ? "key-round" : "log-in");
   document.getElementById("loginError").classList.add("hidden");
   refreshIcons();
 }
