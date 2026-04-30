@@ -8,7 +8,8 @@ const courses = [
     discount: 40,
     rating: 4.9,
     lessons: 84,
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 2,
@@ -19,7 +20,8 @@ const courses = [
     discount: 35,
     rating: 4.8,
     lessons: 48,
-    image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 3,
@@ -30,7 +32,8 @@ const courses = [
     discount: 0,
     rating: 4.7,
     lessons: 36,
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 4,
@@ -41,7 +44,8 @@ const courses = [
     discount: 100,
     rating: 4.9,
     lessons: 22,
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 5,
@@ -52,7 +56,8 @@ const courses = [
     discount: 25,
     rating: 4.6,
     lessons: 42,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 6,
@@ -63,7 +68,8 @@ const courses = [
     discount: 45,
     rating: 4.8,
     lessons: 52,
-    image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 7,
@@ -74,7 +80,8 @@ const courses = [
     discount: 100,
     rating: 4.8,
     lessons: 30,
-    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 8,
@@ -85,7 +92,8 @@ const courses = [
     discount: 30,
     rating: 4.7,
     lessons: 40,
-    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80",
   },
   {
     id: 9,
@@ -96,36 +104,86 @@ const courses = [
     discount: 100,
     rating: 4.5,
     lessons: 18,
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
 const ads = [
-  { title: "Domain + Hosting Bundle", tag: "Sponsor", icon: "server", text: "Course student der jonno starter hosting package e special rate." },
-  { title: "Laptop Upgrade Deal", tag: "Tech Ad", icon: "laptop", text: "Coding, design and video editing er jonno selected laptop offer." },
-  { title: "Certificate Printing", tag: "Student Ad", icon: "award", text: "Premium hard-copy certificate print and delivery service." },
-  { title: "Skill Test Challenge", tag: "Promo", icon: "target", text: "Weekly quiz e top 10 student pachhe free premium class." },
-  { title: "Portfolio Review", tag: "Mentor Ad", icon: "briefcase", text: "Expert mentor diye CV, portfolio and gig profile review." },
-  { title: "Internet Pack Offer", tag: "Partner", icon: "wifi", text: "Online class streaming er jonno student-friendly data pack." },
+  {
+    title: "Domain + Hosting Bundle",
+    tag: "Sponsor",
+    icon: "server",
+    text: "Course student der jonno starter hosting package e special rate.",
+  },
+  {
+    title: "Laptop Upgrade Deal",
+    tag: "Tech Ad",
+    icon: "laptop",
+    text: "Coding, design and video editing er jonno selected laptop offer.",
+  },
+  {
+    title: "Certificate Printing",
+    tag: "Student Ad",
+    icon: "award",
+    text: "Premium hard-copy certificate print and delivery service.",
+  },
+  {
+    title: "Skill Test Challenge",
+    tag: "Promo",
+    icon: "target",
+    text: "Weekly quiz e top 10 student pachhe free premium class.",
+  },
+  {
+    title: "Portfolio Review",
+    tag: "Mentor Ad",
+    icon: "briefcase",
+    text: "Expert mentor diye CV, portfolio and gig profile review.",
+  },
+  {
+    title: "Internet Pack Offer",
+    tag: "Partner",
+    icon: "wifi",
+    text: "Online class streaming er jonno student-friendly data pack.",
+  },
 ];
 
 let selectedCategory = "all";
 let searchTerm = "";
 let authMode = "register";
 let currentUser = null;
-const enrolled = new Set(JSON.parse(localStorage.getItem("utsho_enrolled") || "[]"));
+const enrolled = new Set(
+  JSON.parse(localStorage.getItem("utsho_enrolled") || "[]"),
+);
 
-const money = (value) => (value === 0 ? "Free" : `BDT ${value.toLocaleString("en-US")}`);
-const finalPrice = (course) => Math.round(course.price - course.price * (course.discount / 100));
+const money = (value) =>
+  value === 0 ? "Free" : `BDT ${value.toLocaleString("en-US")}`;
+const finalPrice = (course) =>
+  Math.round(course.price - course.price * (course.discount / 100));
 const courseProgress = (id) => (enrolled.has(id) ? 18 + ((id * 11) % 62) : 0);
 const getUsers = () => JSON.parse(localStorage.getItem("utsho_users") || "[]");
-const saveUsers = (users) => localStorage.setItem("utsho_users", JSON.stringify(users));
-const getReviews = () => JSON.parse(localStorage.getItem("utsho_reviews") || "[]");
-const saveReviews = (reviews) => localStorage.setItem("utsho_reviews", JSON.stringify(reviews));
-const getChatMessages = () => JSON.parse(localStorage.getItem("utsho_chat") || "[]");
-const saveChatMessages = (messages) => localStorage.setItem("utsho_chat", JSON.stringify(messages));
+const saveUsers = (users) =>
+  localStorage.setItem("utsho_users", JSON.stringify(users));
+const getReviews = () =>
+  JSON.parse(localStorage.getItem("utsho_reviews") || "[]");
+const saveReviews = (reviews) =>
+  localStorage.setItem("utsho_reviews", JSON.stringify(reviews));
+const getChatMessages = () =>
+  JSON.parse(localStorage.getItem("utsho_chat") || "[]");
+const saveChatMessages = (messages) =>
+  localStorage.setItem("utsho_chat", JSON.stringify(messages));
 const escapeHtml = (value) =>
-  String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
+  String(value).replace(
+    /[&<>"']/g,
+    (char) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;",
+      })[char],
+  );
 
 function init() {
   const loggedIn = localStorage.getItem("utsho_logged_in") === "true";
@@ -137,19 +195,35 @@ function init() {
 
   document.getElementById("loginForm").addEventListener("submit", handleLogin);
   document.getElementById("logoutBtn").addEventListener("click", handleLogout);
-  document.getElementById("registerTab").addEventListener("click", () => setAuthMode("register"));
-  document.getElementById("loginTab").addEventListener("click", () => setAuthMode("login"));
-  document.getElementById("forgotPasswordBtn").addEventListener("click", () => setAuthMode("forgot"));
-  document.getElementById("backToLoginBtn").addEventListener("click", () => setAuthMode("login"));
-  document.getElementById("studentName").addEventListener("click", openProfileModal);
-  document.getElementById("profileClose").addEventListener("click", closeProfileModal);
+  document
+    .getElementById("registerTab")
+    .addEventListener("click", () => setAuthMode("register"));
+  document
+    .getElementById("loginTab")
+    .addEventListener("click", () => setAuthMode("login"));
+  document
+    .getElementById("forgotPasswordBtn")
+    .addEventListener("click", () => setAuthMode("forgot"));
+  document
+    .getElementById("backToLoginBtn")
+    .addEventListener("click", () => setAuthMode("login"));
+  document
+    .getElementById("studentName")
+    .addEventListener("click", openProfileModal);
+  document
+    .getElementById("profileClose")
+    .addEventListener("click", closeProfileModal);
   document.getElementById("profileModal").addEventListener("click", (event) => {
     if (event.target.id === "profileModal") closeProfileModal();
   });
-  document.getElementById("reviewForm").addEventListener("submit", handleReviewSubmit);
+  document
+    .getElementById("reviewForm")
+    .addEventListener("submit", handleReviewSubmit);
   document.getElementById("chatToggle").addEventListener("click", toggleChat);
   document.getElementById("chatClose").addEventListener("click", toggleChat);
-  document.getElementById("chatForm").addEventListener("submit", handleChatSubmit);
+  document
+    .getElementById("chatForm")
+    .addEventListener("submit", handleChatSubmit);
   document.getElementById("searchInput").addEventListener("input", (event) => {
     searchTerm = event.target.value.toLowerCase();
     renderCourses();
@@ -158,7 +232,9 @@ function init() {
 
   document.querySelectorAll(".filter-btn").forEach((button) => {
     button.addEventListener("click", () => {
-      document.querySelectorAll(".filter-btn").forEach((item) => item.classList.remove("active"));
+      document
+        .querySelectorAll(".filter-btn")
+        .forEach((item) => item.classList.remove("active"));
       button.classList.add("active");
       selectedCategory = button.dataset.filter;
       renderCourses();
@@ -182,18 +258,29 @@ function handleLogin(event) {
   const password = document.getElementById("passwordInput").value.trim();
   const error = document.getElementById("loginError");
 
-  if (!email.includes("@") || password.length < 4 || (authMode === "register" && name.length < 2)) {
-    const message = authMode === "register" ? "Name, valid email and 4 character password diye register korun." : "Valid email and minimum 4 character password din.";
+  if (
+    !email.includes("@") ||
+    password.length < 4 ||
+    (authMode === "register" && name.length < 2)
+  ) {
+    const message =
+      authMode === "register"
+        ? "Name, valid email and 4 character password diye register korun."
+        : "Valid email and minimum 4 character password din.";
     showAuthError(message);
     return;
   }
 
   const users = getUsers();
-  const existingUser = users.find((user) => user.email.toLowerCase() === email.toLowerCase());
+  const existingUser = users.find(
+    (user) => user.email.toLowerCase() === email.toLowerCase(),
+  );
 
   if (authMode === "register") {
     if (existingUser) {
-      showAuthError("Ei email already registered. Login tab theke login korun.");
+      showAuthError(
+        "Ei email already registered. Login tab theke login korun.",
+      );
       setAuthMode("login");
       return;
     }
@@ -266,7 +353,8 @@ function unlockApp(user) {
   document.getElementById("chatWidget").classList.remove("hidden");
   document.getElementById("studentName").classList.remove("hidden");
   document.getElementById("studentName").classList.add("inline-flex");
-  document.getElementById("studentName").textContent = user.name || user.email.split("@")[0];
+  document.getElementById("studentName").textContent =
+    user.name || user.email.split("@")[0];
   renderProfile();
   renderProgressChart();
   renderChat();
@@ -289,16 +377,39 @@ function setAuthMode(mode) {
   const isRegister = mode === "register";
   const isForgot = mode === "forgot";
   document.getElementById("registerTab").classList.toggle("active", isRegister);
-  document.getElementById("loginTab").classList.toggle("active", mode === "login");
+  document
+    .getElementById("loginTab")
+    .classList.toggle("active", mode === "login");
   document.getElementById("nameField").classList.toggle("hidden", !isRegister);
   document.getElementById("nameInput").required = isRegister;
-  document.getElementById("forgotRow").classList.toggle("hidden", mode !== "login");
-  document.getElementById("backToLoginBtn").classList.toggle("hidden", !isForgot);
-  document.getElementById("authTitle").textContent = isRegister ? "Register first" : isForgot ? "Reset password" : "Login required";
-  document.getElementById("passwordLabel").textContent = isForgot ? "New password" : "Password";
-  document.getElementById("passwordInput").placeholder = isForgot ? "Set a new password" : "Minimum 4 characters";
-  document.getElementById("authButtonText").textContent = isRegister ? "Create Account" : isForgot ? "Reset Password" : "Login & Unlock";
-  document.getElementById("authButtonIcon").setAttribute("data-lucide", isRegister ? "user-plus" : isForgot ? "key-round" : "log-in");
+  document
+    .getElementById("forgotRow")
+    .classList.toggle("hidden", mode !== "login");
+  document
+    .getElementById("backToLoginBtn")
+    .classList.toggle("hidden", !isForgot);
+  document.getElementById("authTitle").textContent = isRegister
+    ? "Register first"
+    : isForgot
+      ? "Reset password"
+      : "Login required";
+  document.getElementById("passwordLabel").textContent = isForgot
+    ? "New password"
+    : "Password";
+  document.getElementById("passwordInput").placeholder = isForgot
+    ? "Set a new password"
+    : "Minimum 4 characters";
+  document.getElementById("authButtonText").textContent = isRegister
+    ? "Create Account"
+    : isForgot
+      ? "Reset Password"
+      : "Login & Unlock";
+  document
+    .getElementById("authButtonIcon")
+    .setAttribute(
+      "data-lucide",
+      isRegister ? "user-plus" : isForgot ? "key-round" : "log-in",
+    );
   document.getElementById("loginError").classList.add("hidden");
   refreshIcons();
 }
@@ -312,12 +423,16 @@ function showAuthError(message) {
 function renderCourses() {
   const grid = document.getElementById("courseGrid");
   const list = courses.filter((course) => {
-    const matchesCategory = selectedCategory === "all" || course.category === selectedCategory;
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm) || course.level.toLowerCase().includes(searchTerm);
+    const matchesCategory =
+      selectedCategory === "all" || course.category === selectedCategory;
+    const matchesSearch =
+      course.title.toLowerCase().includes(searchTerm) ||
+      course.level.toLowerCase().includes(searchTerm);
     return matchesCategory && matchesSearch;
   });
 
-  grid.innerHTML = list.map(courseCard).join("") || emptyState("No course found.");
+  grid.innerHTML =
+    list.map(courseCard).join("") || emptyState("No course found.");
   bindEnrollButtons();
   renderProfile();
   renderProgressChart();
@@ -325,7 +440,9 @@ function renderCourses() {
 }
 
 function renderDeals() {
-  const deals = courses.filter((course) => course.discount > 0 && course.price > 0).slice(0, 3);
+  const deals = courses
+    .filter((course) => course.discount > 0 && course.price > 0)
+    .slice(0, 3);
   document.getElementById("dealGrid").innerHTML = deals
     .map(
       (course) => `
@@ -344,7 +461,7 @@ function renderDeals() {
             <button class="enroll-btn rounded-lg bg-white px-4 py-3 font-black text-ink" data-id="${course.id}">Claim</button>
           </div>
         </article>
-      `
+      `,
     )
     .join("");
   bindEnrollButtons();
@@ -352,8 +469,12 @@ function renderDeals() {
 }
 
 function renderFreeCourses() {
-  const freeCourses = courses.filter((course) => course.price === 0).slice(0, 4);
-  document.getElementById("freeGrid").innerHTML = freeCourses.map(courseCard).join("");
+  const freeCourses = courses
+    .filter((course) => course.price === 0)
+    .slice(0, 4);
+  document.getElementById("freeGrid").innerHTML = freeCourses
+    .map(courseCard)
+    .join("");
   bindEnrollButtons();
   refreshIcons();
 }
@@ -362,11 +483,20 @@ function renderProfile() {
   if (!currentUser) return;
   const enrolledCourses = courses.filter((course) => enrolled.has(course.id));
   const joined = currentUser.joined || "2026";
-  document.getElementById("profileAvatar").textContent = (currentUser.name || currentUser.email || "U").charAt(0).toUpperCase();
-  document.getElementById("profileName").textContent = currentUser.name || currentUser.email.split("@")[0];
+  document.getElementById("profileAvatar").textContent = (
+    currentUser.name ||
+    currentUser.email ||
+    "U"
+  )
+    .charAt(0)
+    .toUpperCase();
+  document.getElementById("profileName").textContent =
+    currentUser.name || currentUser.email.split("@")[0];
   document.getElementById("profileEmail").textContent = currentUser.email;
-  document.getElementById("profileJoined").textContent = `Member since ${joined}`;
-  document.getElementById("profileCourses").textContent = `${enrolledCourses.length} enrolled courses`;
+  document.getElementById("profileJoined").textContent =
+    `Member since ${joined}`;
+  document.getElementById("profileCourses").textContent =
+    `${enrolledCourses.length} enrolled courses`;
 }
 
 function renderProgressChart() {
@@ -386,7 +516,10 @@ function renderProgressChart() {
     return;
   }
 
-  const total = enrolledCourses.reduce((sum, course) => sum + courseProgress(course.id), 0);
+  const total = enrolledCourses.reduce(
+    (sum, course) => sum + courseProgress(course.id),
+    0,
+  );
   const average = Math.round(total / enrolledCourses.length);
   document.getElementById("overallProgress").textContent = `${average}%`;
   chart.innerHTML = enrolledCourses
@@ -445,7 +578,7 @@ function renderReviews() {
           <p class="leading-7 text-black/62">${escapeHtml(review.text)}</p>
           <p class="mt-3 text-xs font-black uppercase tracking-[0.16em] text-black/32">${escapeHtml(review.date)}</p>
         </article>
-      `
+      `,
     )
     .join("");
 }
@@ -486,7 +619,7 @@ function renderAds() {
             View Ad
           </button>
         </article>
-      `
+      `,
     )
     .join("");
   refreshIcons();
@@ -564,7 +697,10 @@ function renderChat() {
   };
   const visibleMessages = messages.length ? messages : [starter];
   box.innerHTML = visibleMessages
-    .map((message) => `<div class="chat-bubble ${message.from === "user" ? "user" : "support"}">${escapeHtml(message.text)}</div>`)
+    .map(
+      (message) =>
+        `<div class="chat-bubble ${message.from === "user" ? "user" : "support"}">${escapeHtml(message.text)}</div>`,
+    )
     .join("");
   box.scrollTop = box.scrollHeight;
 }
@@ -579,7 +715,7 @@ function handleChatSubmit(event) {
   messages.push({ from: "user", text });
   messages.push({
     from: "support",
-    text: "Thanks. Amader support team khub taratari reply korbe. Urgent hole +880 1700-123456 e call korun.",
+    text: "Thanks. Amader support team khub taratari reply korbe. Urgent hole +880 1756-467670 e call korun.",
   });
   saveChatMessages(messages);
   input.value = "";
@@ -600,7 +736,10 @@ function showToast(message) {
   toast.textContent = message;
   toast.classList.remove("hidden");
   window.clearTimeout(showToast.timer);
-  showToast.timer = window.setTimeout(() => toast.classList.add("hidden"), 2200);
+  showToast.timer = window.setTimeout(
+    () => toast.classList.add("hidden"),
+    2200,
+  );
 }
 
 function refreshIcons() {
