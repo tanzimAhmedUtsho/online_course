@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Utsho Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Inter", "ui-sans-serif", "system-ui"],
+            },
+            colors: {
+              ink: "#101114",
+              gold: "#d8a84f",
+              mint: "#2fbf8f",
+              fire: "#ff6b4a",
+            },
+            boxShadow: {
+              glow: "0 24px 80px rgba(216, 168, 79, .22)",
+              panel: "0 18px 55px rgba(16, 17, 20, .12)",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-[#f7f3ea] font-display text-ink">
+    <header class="sticky top-0 z-40 border-b border-black/5 bg-[#f7f3ea]/90 backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="index.html" class="flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-lg bg-ink text-gold">
+            <i data-lucide="graduation-cap" class="h-5 w-5"></i>
+          </span>
+          <span>
+            <span class="block text-lg font-black leading-none">Utsho Academy</span>
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-black/45">Since 2023</span>
+          </span>
+        </a>
+        <a href="index.html" class="flex items-center gap-2 rounded-lg bg-ink px-4 py-3 text-sm font-black text-white transition hover:bg-gold hover:text-ink">
+          <i data-lucide="arrow-left" class="h-4 w-4"></i>
+          Back Home
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="relative overflow-hidden bg-ink text-white">
+        <img
+          class="absolute inset-0 h-full w-full object-cover opacity-35"
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=80"
+          alt="Dhaka city contact office"
+        />
+        <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,17,20,.95),rgba(16,17,20,.72),rgba(16,17,20,.38))]"></div>
+        <div class="relative mx-auto grid min-h-[560px] max-w-7xl items-center gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[.95fr_1.05fr] lg:px-8">
+          <div>
+            <p class="text-sm font-black uppercase tracking-[0.22em] text-gold">Contact us</p>
+            <h1 class="mt-3 max-w-3xl text-5xl font-black leading-[1.02] tracking-[-0.02em] sm:text-6xl">Talk with Utsho Academy</h1>
+            <p class="mt-5 max-w-xl text-lg leading-8 text-white/70">
+              Course support, payment help, certificate, batch schedule, ba partnership er jonno amader shathe contact korte parben.
+            </p>
+            <div class="mt-7 grid gap-3">
+              <div class="contact-row"><i data-lucide="phone" class="h-5 w-5"></i><span>+880 1700-123456</span></div>
+              <div class="contact-row"><i data-lucide="mail" class="h-5 w-5"></i><span>support@utshoacademy.com</span></div>
+              <div class="contact-row"><i data-lucide="map-pin" class="h-5 w-5"></i><span>Mirpur DOHS, Dhaka, Bangladesh</span></div>
+              <div class="contact-row"><i data-lucide="clock" class="h-5 w-5"></i><span>Support time: 10:00 AM - 10:00 PM</span></div>
+            </div>
+          </div>
+          <div class="rounded-lg border border-white/10 bg-white/10 p-5 shadow-glow backdrop-blur-xl">
+            <div class="rounded-lg bg-white p-5 text-ink shadow-panel">
+              <div class="mb-4 flex items-center justify-between">
+                <h2 class="text-2xl font-black">Location details</h2>
+                <i data-lucide="navigation" class="h-7 w-7 text-mint"></i>
+              </div>
+              <div class="map-card">
+                <span></span>
+                <span></span>
+                <span></span>
+                <div class="map-pin"><i data-lucide="map-pin" class="h-6 w-6"></i></div>
+              </div>
+              <p class="mt-4 text-sm font-bold text-black/55">Near Mirpur DOHS, easy access from Dhaka city.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:grid-cols-[.8fr_1.2fr] lg:px-8">
+        <div>
+          <p class="text-sm font-black uppercase tracking-[0.22em] text-mint">Message</p>
+          <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">Send us your question</h2>
+          <p class="mt-4 leading-7 text-black/60">Ei form demo contact request hisebe kaj korbe. Submit korle browser-e confirmation dekhabe.</p>
+        </div>
+        <form id="contactForm" class="grid gap-4 rounded-lg bg-white p-6 shadow-panel">
+          <input required class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-semibold outline-none focus:border-gold" placeholder="Your name" />
+          <input required type="email" class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-semibold outline-none focus:border-gold" placeholder="Email address" />
+          <textarea required rows="6" class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-semibold outline-none focus:border-gold" placeholder="Message"></textarea>
+          <button class="flex items-center justify-center gap-2 rounded-lg bg-ink px-5 py-3 font-black text-white transition hover:bg-gold hover:text-ink">
+            <i data-lucide="send" class="h-5 w-5"></i>
+            Send Message
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <div id="toast" class="pointer-events-none fixed bottom-5 left-1/2 z-50 hidden -translate-x-1/2 rounded-lg bg-ink px-5 py-3 text-sm font-bold text-white shadow-panel"></div>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+      if (window.lucide) window.lucide.createIcons();
+      document.getElementById("contactForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const toast = document.getElementById("toast");
+        toast.textContent = "Message sent. Support team will contact you soon.";
+        toast.classList.remove("hidden");
+        event.target.reset();
+        setTimeout(() => toast.classList.add("hidden"), 2400);
+      });
+    </script>
+  </body>
+</html>

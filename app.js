@@ -112,12 +112,20 @@ const ads = [
 let selectedCategory = "all";
 let searchTerm = "";
 let authMode = "register";
+let currentUser = null;
 const enrolled = new Set(JSON.parse(localStorage.getItem("utsho_enrolled") || "[]"));
 
 const money = (value) => (value === 0 ? "Free" : `BDT ${value.toLocaleString("en-US")}`);
 const finalPrice = (course) => Math.round(course.price - course.price * (course.discount / 100));
+const courseProgress = (id) => (enrolled.has(id) ? 18 + ((id * 11) % 62) : 0);
 const getUsers = () => JSON.parse(localStorage.getItem("utsho_users") || "[]");
 const saveUsers = (users) => localStorage.setItem("utsho_users", JSON.stringify(users));
+const getReviews = () => JSON.parse(localStorage.getItem("utsho_reviews") || "[]");
+const saveReviews = (reviews) => localStorage.setItem("utsho_reviews", JSON.stringify(reviews));
+const getChatMessages = () => JSON.parse(localStorage.getItem("utsho_chat") || "[]");
+const saveChatMessages = (messages) => localStorage.setItem("utsho_chat", JSON.stringify(messages));
+const escapeHtml = (value) =>
+  String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char]);
 
 function init() {
   const loggedIn = localStorage.getItem("utsho_logged_in") === "true";
@@ -133,6 +141,15 @@ function init() {
   document.getElementById("loginTab").addEventListener("click", () => setAuthMode("login"));
   document.getElementById("forgotPasswordBtn").addEventListener("click", () => setAuthMode("forgot"));
   document.getElementById("backToLoginBtn").addEventListener("click", () => setAuthMode("login"));
+  document.getElementById("studentName").addEventListener("click", openProfileModal);
+  document.getElementById("profileClose").addEventListener("click", closeProfileModal);
+  document.getElementById("profileModal").addEventListener("click", (event) => {
+    if (event.target.id === "profileModal") closeProfileModal();
+  });
+  document.getElementById("reviewForm").addEventListener("submit", handleReviewSubmit);
+  document.getElementById("chatToggle").addEventListener("click", toggleChat);
+  document.getElementById("chatClose").addEventListener("click", toggleChat);
+  document.getElementById("chatForm").addEventListener("submit", handleChatSubmit);
   document.getElementById("searchInput").addEventListener("input", (event) => {
     searchTerm = event.target.value.toLowerCase();
     renderCourses();
@@ -152,6 +169,9 @@ function init() {
   renderDeals();
   renderFreeCourses();
   renderAds();
+  renderReviewOptions();
+  renderReviews();
+  renderChat();
   refreshIcons();
 }
 
@@ -178,7 +198,7 @@ function handleLogin(event) {
       return;
     }
 
-    const user = { name, email, password };
+    const user = { name, email, password, joined: new Date().getFullYear() };
     users.push(user);
     saveUsers(users);
     setAuthMode("login");
@@ -228,15 +248,40 @@ function completeAuth(user, message) {
 
 function handleLogout() {
   localStorage.removeItem("utsho_logged_in");
+  currentUser = null;
   document.getElementById("loginGate").classList.remove("hidden");
   document.getElementById("app").classList.add("opacity-0");
+  document.getElementById("studentName").classList.add("hidden");
+  document.getElementById("studentName").classList.remove("inline-flex");
+  closeProfileModal();
+  document.getElementById("chatWidget").classList.add("hidden");
+  document.getElementById("chatPanel").classList.add("hidden");
   showToast("Logged out");
 }
 
 function unlockApp(user) {
+  currentUser = user;
   document.getElementById("loginGate").classList.add("hidden");
   document.getElementById("app").classList.remove("opacity-0");
+  document.getElementById("chatWidget").classList.remove("hidden");
+  document.getElementById("studentName").classList.remove("hidden");
+  document.getElementById("studentName").classList.add("inline-flex");
   document.getElementById("studentName").textContent = user.name || user.email.split("@")[0];
+  renderProfile();
+  renderProgressChart();
+  renderChat();
+}
+
+function openProfileModal() {
+  if (!currentUser) return;
+  renderProfile();
+  renderProgressChart();
+  document.getElementById("profileModal").classList.remove("hidden");
+  refreshIcons();
+}
+
+function closeProfileModal() {
+  document.getElementById("profileModal").classList.add("hidden");
 }
 
 function setAuthMode(mode) {
@@ -274,6 +319,8 @@ function renderCourses() {
 
   grid.innerHTML = list.map(courseCard).join("") || emptyState("No course found.");
   bindEnrollButtons();
+  renderProfile();
+  renderProgressChart();
   refreshIcons();
 }
 
@@ -311,6 +358,115 @@ function renderFreeCourses() {
   refreshIcons();
 }
 
+function renderProfile() {
+  if (!currentUser) return;
+  const enrolledCourses = courses.filter((course) => enrolled.has(course.id));
+  const joined = currentUser.joined || "2026";
+  document.getElementById("profileAvatar").textContent = (currentUser.name || currentUser.email || "U").charAt(0).toUpperCase();
+  document.getElementById("profileName").textContent = currentUser.name || currentUser.email.split("@")[0];
+  document.getElementById("profileEmail").textContent = currentUser.email;
+  document.getElementById("profileJoined").textContent = `Member since ${joined}`;
+  document.getElementById("profileCourses").textContent = `${enrolledCourses.length} enrolled courses`;
+}
+
+function renderProgressChart() {
+  const chart = document.getElementById("progressChart");
+  const enrolledCourses = courses.filter((course) => enrolled.has(course.id));
+
+  if (!enrolledCourses.length) {
+    document.getElementById("overallProgress").textContent = "0%";
+    chart.innerHTML = `
+      <div class="rounded-lg border border-white/10 bg-white/10 p-6 text-center">
+        <i data-lucide="bar-chart-3" class="mx-auto h-10 w-10 text-gold"></i>
+        <p class="mt-3 font-black">No enrolled course yet</p>
+        <p class="mt-1 text-sm font-semibold text-white/50">Enroll korlei ekhane progress chart dekhabe.</p>
+      </div>
+    `;
+    refreshIcons();
+    return;
+  }
+
+  const total = enrolledCourses.reduce((sum, course) => sum + courseProgress(course.id), 0);
+  const average = Math.round(total / enrolledCourses.length);
+  document.getElementById("overallProgress").textContent = `${average}%`;
+  chart.innerHTML = enrolledCourses
+    .map((course) => {
+      const progress = courseProgress(course.id);
+      return `
+        <div class="chart-row">
+          <div class="flex items-center justify-between gap-3 text-sm font-black">
+            <span>${course.title}</span>
+            <span class="text-gold">${progress}%</span>
+          </div>
+          <div class="chart-track"><span style="width: ${progress}%"></span></div>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderReviewOptions() {
+  document.getElementById("reviewCourse").innerHTML = courses
+    .map((course) => `<option value="${course.title}">${course.title}</option>`)
+    .join("");
+}
+
+function renderReviews() {
+  const reviews = getReviews();
+  const defaultReviews = [
+    {
+      name: "Nusrat Jahan",
+      course: "Tailwind CSS Premium UI Design",
+      rating: 5,
+      text: "Design section onek clear. Project kore kore practice kora jay.",
+      date: "2026-04-12",
+    },
+    {
+      name: "Rakib Hasan",
+      course: "Complete HTML, CSS & JavaScript Mastery",
+      rating: 5,
+      text: "Beginner theke portfolio level porjonto path ta helpful.",
+      date: "2026-04-18",
+    },
+  ];
+  const list = [...reviews, ...defaultReviews];
+  document.getElementById("reviewCount").textContent = list.length;
+  document.getElementById("reviewList").innerHTML = list
+    .map(
+      (review) => `
+        <article class="review-card">
+          <div class="mb-3 flex items-start justify-between gap-3">
+            <div>
+              <h3 class="text-lg font-black">${escapeHtml(review.name)}</h3>
+              <p class="text-sm font-bold text-black/42">${escapeHtml(review.course)}</p>
+            </div>
+            <span class="badge bg-[#fff6e5] text-ink">${Number(review.rating)}/5</span>
+          </div>
+          <p class="leading-7 text-black/62">${escapeHtml(review.text)}</p>
+          <p class="mt-3 text-xs font-black uppercase tracking-[0.16em] text-black/32">${escapeHtml(review.date)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function handleReviewSubmit(event) {
+  event.preventDefault();
+  if (!currentUser) return;
+  const reviews = getReviews();
+  reviews.unshift({
+    name: currentUser.name || currentUser.email.split("@")[0],
+    course: document.getElementById("reviewCourse").value,
+    rating: document.getElementById("reviewRating").value,
+    text: document.getElementById("reviewText").value.trim(),
+    date: new Date().toISOString().slice(0, 10),
+  });
+  saveReviews(reviews);
+  document.getElementById("reviewForm").reset();
+  renderReviews();
+  showToast("Review submitted. Thank you");
+}
+
 function renderAds() {
   const shuffled = [...ads].sort(() => Math.random() - 0.5).slice(0, 4);
   document.getElementById("adGrid").innerHTML = shuffled
@@ -340,7 +496,7 @@ function courseCard(course) {
   const isFree = course.price === 0;
   const isEnrolled = enrolled.has(course.id);
   const price = isFree ? "Free" : money(finalPrice(course));
-  const progress = isEnrolled ? 18 + ((course.id * 11) % 62) : 0;
+  const progress = courseProgress(course.id);
 
   return `
     <article class="course-card" data-category="${course.category}">
@@ -388,8 +544,46 @@ function bindEnrollButtons() {
       renderCourses();
       renderDeals();
       renderFreeCourses();
+      renderProfile();
+      renderProgressChart();
     });
   });
+}
+
+function toggleChat() {
+  document.getElementById("chatPanel").classList.toggle("hidden");
+  renderChat();
+}
+
+function renderChat() {
+  const box = document.getElementById("chatMessages");
+  const messages = getChatMessages();
+  const starter = {
+    from: "support",
+    text: "Assalamu alaikum. Course, payment ba certificate niye help lagle message din.",
+  };
+  const visibleMessages = messages.length ? messages : [starter];
+  box.innerHTML = visibleMessages
+    .map((message) => `<div class="chat-bubble ${message.from === "user" ? "user" : "support"}">${escapeHtml(message.text)}</div>`)
+    .join("");
+  box.scrollTop = box.scrollHeight;
+}
+
+function handleChatSubmit(event) {
+  event.preventDefault();
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  const messages = getChatMessages();
+  messages.push({ from: "user", text });
+  messages.push({
+    from: "support",
+    text: "Thanks. Amader support team khub taratari reply korbe. Urgent hole +880 1700-123456 e call korun.",
+  });
+  saveChatMessages(messages);
+  input.value = "";
+  renderChat();
 }
 
 function emptyState(message) {

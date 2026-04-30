@@ -160,15 +160,18 @@
             class="hidden items-center gap-6 text-sm font-bold text-black/60 md:flex"
           >
             <a class="hover:text-ink" href="#courses">Courses</a>
+            <a class="hover:text-ink" href="#reviews">Reviews</a>
+            <a class="hover:text-ink" href="contact.html">Contact</a>
             <a class="hover:text-ink" href="#offers">Offers</a>
             <a class="hover:text-ink" href="#free">Free</a>
             <a class="hover:text-ink" href="#ads">Ads</a>
           </div>
           <div class="flex items-center gap-2">
-            <span
+            <button
               id="studentName"
-              class="hidden rounded-lg border border-black/10 bg-white px-3 py-2 text-sm font-bold shadow-sm sm:inline-flex"
-            ></span>
+              class="hidden items-center rounded-lg border border-black/10 bg-white px-3 py-2 text-sm font-bold shadow-sm transition hover:bg-ink hover:text-white"
+              title="View profile"
+            ></button>
             <button
               id="logoutBtn"
               class="grid h-10 w-10 place-items-center rounded-lg border border-black/10 bg-white shadow-sm transition hover:bg-ink hover:text-white"
@@ -355,6 +358,39 @@
         <div id="freeGrid" class="grid gap-5 sm:grid-cols-2"></div>
       </section>
 
+      <section id="reviews" class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p class="text-sm font-black uppercase tracking-[0.22em] text-mint">Feedback</p>
+            <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">Course reviews from learners</h2>
+          </div>
+          <div class="rounded-lg bg-white px-4 py-3 text-sm font-black text-black/55 shadow-sm">
+            <span id="reviewCount">0</span> reviews
+          </div>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-[.85fr_1.15fr]">
+          <form id="reviewForm" class="rounded-lg bg-white p-6 shadow-panel">
+            <h3 class="text-2xl font-black">Give your feedback</h3>
+            <div class="mt-5 grid gap-4">
+              <select id="reviewCourse" class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-bold outline-none focus:border-gold"></select>
+              <select id="reviewRating" class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-bold outline-none focus:border-gold">
+                <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 star</option>
+              </select>
+              <textarea id="reviewText" required rows="5" class="rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-semibold outline-none focus:border-gold" placeholder="Course ta niye apnar feedback likhun"></textarea>
+              <button type="submit" class="flex items-center justify-center gap-2 rounded-lg bg-ink px-5 py-3 font-black text-white transition hover:bg-gold hover:text-ink">
+                <i data-lucide="send" class="h-5 w-5"></i>
+                Submit Review
+              </button>
+            </div>
+          </form>
+          <div id="reviewList" class="grid gap-4"></div>
+        </div>
+      </section>
+
       <section id="ads" class="bg-white py-14">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="mb-8 flex items-end justify-between gap-4">
@@ -403,6 +439,9 @@
             <a class="footer-icon" href="#offers" title="Offers"
               ><i data-lucide="gift" class="h-5 w-5"></i
             ></a>
+            <a class="footer-icon" href="contact.html" title="Contact"
+              ><i data-lucide="phone" class="h-5 w-5"></i
+            ></a>
           </div>
         </div>
       </footer>
@@ -412,6 +451,79 @@
       id="toast"
       class="pointer-events-none fixed bottom-5 left-1/2 z-50 hidden -translate-x-1/2 rounded-lg bg-ink px-5 py-3 text-sm font-bold text-white shadow-panel"
     ></div>
+
+    <div id="profileModal" class="fixed inset-0 z-50 hidden bg-ink/70 px-4 py-6 backdrop-blur-sm">
+      <div class="mx-auto grid max-h-[calc(100vh-48px)] max-w-5xl gap-5 overflow-y-auto rounded-lg bg-[#f7f3ea] p-5 shadow-glow lg:grid-cols-[.82fr_1.18fr]">
+        <div class="lg:col-span-2 flex items-center justify-between gap-4">
+          <div>
+            <p class="text-sm font-black uppercase tracking-[0.22em] text-gold">My dashboard</p>
+            <h2 class="mt-1 text-3xl font-black tracking-[-0.02em]">Profile & progress</h2>
+          </div>
+          <button id="profileClose" class="grid h-10 w-10 place-items-center rounded-lg bg-ink text-white transition hover:bg-gold hover:text-ink" title="Close profile">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <div class="rounded-lg border border-black/10 bg-white p-6 shadow-panel">
+          <div class="mb-6 flex items-center gap-4">
+            <div id="profileAvatar" class="grid h-16 w-16 place-items-center rounded-lg bg-ink text-2xl font-black text-gold">U</div>
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.22em] text-gold">Student profile</p>
+              <h2 id="profileName" class="mt-1 text-3xl font-black tracking-[-0.02em]">Student</h2>
+            </div>
+          </div>
+          <div class="grid gap-3 text-sm font-bold text-black/62">
+            <div class="flex items-center gap-3 rounded-lg bg-[#f7f3ea] p-4">
+              <i data-lucide="mail" class="h-5 w-5 text-mint"></i>
+              <span id="profileEmail">student@utsho.com</span>
+            </div>
+            <div class="flex items-center gap-3 rounded-lg bg-[#f7f3ea] p-4">
+              <i data-lucide="calendar-check" class="h-5 w-5 text-mint"></i>
+              <span id="profileJoined">Member since 2026</span>
+            </div>
+            <div class="flex items-center gap-3 rounded-lg bg-[#f7f3ea] p-4">
+              <i data-lucide="book-marked" class="h-5 w-5 text-mint"></i>
+              <span id="profileCourses">0 enrolled courses</span>
+            </div>
+          </div>
+        </div>
+        <div id="progress" class="rounded-lg border border-black/10 bg-ink p-6 text-white shadow-panel">
+          <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p class="text-sm font-black uppercase tracking-[0.22em] text-gold">Progress chart</p>
+              <h2 class="mt-2 text-3xl font-black tracking-[-0.02em]">Your learning progress</h2>
+            </div>
+            <div class="rounded-lg bg-white/10 px-4 py-3 text-sm font-black text-gold">
+              <span id="overallProgress">0%</span> overall
+            </div>
+          </div>
+          <div id="progressChart" class="space-y-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="chatWidget" class="fixed bottom-5 right-5 z-50 hidden">
+      <button id="chatToggle" class="grid h-14 w-14 place-items-center rounded-lg bg-gold text-ink shadow-glow transition hover:bg-[#e6bd68]" title="Live chat">
+        <i data-lucide="message-circle" class="h-7 w-7"></i>
+      </button>
+      <div id="chatPanel" class="chat-panel hidden">
+        <div class="flex items-center justify-between border-b border-white/10 p-4">
+          <div>
+            <p class="text-sm font-black text-gold">Live chat</p>
+            <p class="text-xs font-bold text-white/50">Utsho Academy Support</p>
+          </div>
+          <button id="chatClose" class="grid h-9 w-9 place-items-center rounded-lg bg-white/10 text-white hover:bg-white/20" title="Close chat">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <div id="chatMessages" class="h-72 space-y-3 overflow-y-auto p-4"></div>
+        <form id="chatForm" class="flex gap-2 border-t border-white/10 p-3">
+          <input id="chatInput" required class="min-w-0 flex-1 rounded-lg border border-white/10 bg-white/10 px-3 py-3 text-sm font-semibold text-white outline-none placeholder:text-white/35 focus:border-gold" placeholder="Message likhun" />
+          <button class="grid h-11 w-11 place-items-center rounded-lg bg-gold text-ink" title="Send message">
+            <i data-lucide="send" class="h-5 w-5"></i>
+          </button>
+        </form>
+      </div>
+    </div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="app.js"></script>
