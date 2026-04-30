@@ -31,6 +31,20 @@ body {
   color: #ffffff;
 }
 
+.auth-tab {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.62);
+  transition: 180ms ease;
+}
+
+.auth-tab.active {
+  background: #d8a84f;
+  color: #101114;
+}
+
 .course-card {
   overflow: hidden;
   border: 1px solid rgba(16, 17, 20, 0.08);

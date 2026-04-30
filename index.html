@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -35,76 +35,139 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="bg-[#f7f3ea] font-display text-ink">
-    <div id="loginGate" class="fixed inset-0 z-50 grid place-items-center bg-ink/95 px-4">
+    <div
+      id="loginGate"
+      class="fixed inset-0 z-50 grid place-items-center bg-ink/95 px-4"
+    >
       <div class="absolute inset-0 login-visual"></div>
-      <div class="relative w-full max-w-md overflow-hidden rounded-lg border border-white/15 bg-white/10 p-6 text-white shadow-glow backdrop-blur-2xl">
+      <div
+        class="relative w-full max-w-md overflow-hidden rounded-lg border border-white/15 bg-white/10 p-6 text-white shadow-glow backdrop-blur-2xl"
+      >
         <div class="mb-6 flex items-center justify-between">
           <div>
-            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-gold">Utsho Academy</p>
-            <h1 class="mt-2 text-3xl font-black">Login required</h1>
+            <p
+              class="text-sm font-semibold uppercase tracking-[0.24em] text-gold"
+            >
+              Utsho Academy
+            </p>
+            <h1 id="authTitle" class="mt-2 text-3xl font-black">
+              Register first
+            </h1>
           </div>
-          <div class="grid h-12 w-12 place-items-center rounded-lg bg-gold text-ink">
+          <div
+            class="grid h-12 w-12 place-items-center rounded-lg bg-gold text-ink"
+          >
             <i data-lucide="lock-keyhole" class="h-6 w-6"></i>
           </div>
         </div>
         <p class="mb-5 text-sm leading-6 text-white/75">
-          Login chara kono course, ad offer, free enrollment ba premium dashboard dekhte parben na.
+          Age registration korte hobe. Registration thakle sudhu email/password
+          diye login kore course dashboard e jawa jabe.
         </p>
+        <div
+          class="mb-5 grid grid-cols-2 gap-2 rounded-lg border border-white/15 bg-white/10 p-1"
+        >
+          <button id="registerTab" type="button" class="auth-tab active">
+            Register
+          </button>
+          <button id="loginTab" type="button" class="auth-tab">Login</button>
+        </div>
         <form id="loginForm" class="space-y-4">
+          <label id="nameField" class="block">
+            <span class="mb-2 block text-sm font-semibold text-white/80"
+              >Full name</span
+            >
+            <input
+              id="nameInput"
+              type="text"
+              required
+              value=""
+              class="w-full rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-white outline-none transition placeholder:text-white/40 focus:border-gold"
+              placeholder="Your full name"
+            />
+          </label>
           <label class="block">
-            <span class="mb-2 block text-sm font-semibold text-white/80">Email</span>
+            <span class="mb-2 block text-sm font-semibold text-white/80"
+              >Email</span
+            >
             <input
               id="emailInput"
               type="email"
               required
-              value="student@utsho.com"
               class="w-full rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-white outline-none transition placeholder:text-white/40 focus:border-gold"
               placeholder="student@utsho.com"
             />
           </label>
           <label class="block">
-            <span class="mb-2 block text-sm font-semibold text-white/80">Password</span>
+            <span class="mb-2 block text-sm font-semibold text-white/80"
+              >Password</span
+            >
             <input
               id="passwordInput"
               type="password"
               required
-              value="123456"
               class="w-full rounded-lg border border-white/15 bg-white/10 px-4 py-3 text-white outline-none transition placeholder:text-white/40 focus:border-gold"
-              placeholder="123456"
+              placeholder="Minimum 4 characters"
             />
           </label>
-          <p id="loginError" class="hidden rounded-lg bg-fire/15 px-4 py-3 text-sm text-red-100">
-            Please enter a valid email and at least 4 character password.
+          <p
+            id="loginError"
+            class="hidden rounded-lg bg-fire/15 px-4 py-3 text-sm text-red-100"
+          >
+            Please register first, then login with the same email and password.
           </p>
-          <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-5 py-3 font-black text-ink transition hover:bg-[#e6bd68]">
-            <i data-lucide="log-in" class="h-5 w-5"></i>
-            Unlock Courses
+          <button
+            type="submit"
+            class="flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-5 py-3 font-black text-ink transition hover:bg-[#e6bd68]"
+          >
+            <i id="authButtonIcon" data-lucide="user-plus" class="h-5 w-5"></i>
+            <span id="authButtonText">Create Account</span>
           </button>
         </form>
       </div>
     </div>
 
     <main id="app" class="min-h-screen opacity-0 transition duration-500">
-      <header class="sticky top-0 z-40 border-b border-black/5 bg-[#f7f3ea]/85 backdrop-blur-xl">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <header
+        class="sticky top-0 z-40 border-b border-black/5 bg-[#f7f3ea]/85 backdrop-blur-xl"
+      >
+        <nav
+          class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+        >
           <a href="#home" class="flex items-center gap-3">
-            <span class="grid h-10 w-10 place-items-center rounded-lg bg-ink text-gold">
+            <span
+              class="grid h-10 w-10 place-items-center rounded-lg bg-ink text-gold"
+            >
               <i data-lucide="graduation-cap" class="h-5 w-5"></i>
             </span>
             <span>
-              <span class="block text-lg font-black leading-none">Utsho Academy</span>
-              <span class="text-xs font-bold uppercase tracking-[0.2em] text-black/45">Since 2023</span>
+              <span class="block text-lg font-black leading-none"
+                >Utsho Academy</span
+              >
+              <span
+                class="text-xs font-bold uppercase tracking-[0.2em] text-black/45"
+                >Since 2023</span
+              >
             </span>
           </a>
-          <div class="hidden items-center gap-6 text-sm font-bold text-black/60 md:flex">
+          <div
+            class="hidden items-center gap-6 text-sm font-bold text-black/60 md:flex"
+          >
             <a class="hover:text-ink" href="#courses">Courses</a>
             <a class="hover:text-ink" href="#offers">Offers</a>
             <a class="hover:text-ink" href="#free">Free</a>
             <a class="hover:text-ink" href="#ads">Ads</a>
           </div>
           <div class="flex items-center gap-2">
-            <span id="studentName" class="hidden rounded-lg border border-black/10 bg-white px-3 py-2 text-sm font-bold shadow-sm sm:inline-flex"></span>
-            <button id="logoutBtn" class="grid h-10 w-10 place-items-center rounded-lg border border-black/10 bg-white shadow-sm transition hover:bg-ink hover:text-white" title="Logout">
+            <span
+              id="studentName"
+              class="hidden rounded-lg border border-black/10 bg-white px-3 py-2 text-sm font-bold shadow-sm sm:inline-flex"
+            ></span>
+            <button
+              id="logoutBtn"
+              class="grid h-10 w-10 place-items-center rounded-lg border border-black/10 bg-white shadow-sm transition hover:bg-ink hover:text-white"
+              title="Logout"
+            >
               <i data-lucide="log-out" class="h-5 w-5"></i>
             </button>
           </div>
@@ -117,33 +180,53 @@
           src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=80"
           alt="Students learning online"
         />
-        <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,17,20,.94),rgba(16,17,20,.68),rgba(16,17,20,.25))]"></div>
-        <div class="relative mx-auto grid min-h-[680px] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_.82fr] lg:px-8">
+        <div
+          class="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,17,20,.94),rgba(16,17,20,.68),rgba(16,17,20,.25))]"
+        ></div>
+        <div
+          class="relative mx-auto grid min-h-[680px] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_.82fr] lg:px-8"
+        >
           <div class="max-w-3xl">
-            <div class="mb-5 inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-sm font-bold text-gold backdrop-blur">
+            <div
+              class="mb-5 inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-sm font-bold text-gold backdrop-blur"
+            >
               <i data-lucide="sparkles" class="h-4 w-4"></i>
               Premium online learning platform by Tanzim Ahmed Utsho
             </div>
-            <h2 class="max-w-4xl text-5xl font-black leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
+            <h2
+              class="max-w-4xl text-5xl font-black leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl"
+            >
               Career-ready courses, live skill paths, and member-only offers.
             </h2>
             <p class="mt-6 max-w-2xl text-lg leading-8 text-white/78">
-              2023 theke Utsho Academy practical web, design, freelancing, AI, marketing and business course niye cholche. Login korlei course enroll, free course unlock, discount claim sob ek jaygay.
+              2023 theke Utsho Academy practical web, design, freelancing, AI,
+              marketing and business course niye cholche. Login korlei course
+              enroll, free course unlock, discount claim sob ek jaygay.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
-              <a href="#courses" class="flex items-center gap-2 rounded-lg bg-gold px-5 py-3 font-black text-ink transition hover:bg-[#e8bd68]">
+              <a
+                href="#courses"
+                class="flex items-center gap-2 rounded-lg bg-gold px-5 py-3 font-black text-ink transition hover:bg-[#e8bd68]"
+              >
                 <i data-lucide="play-circle" class="h-5 w-5"></i>
                 Start Learning
               </a>
-              <a href="#offers" class="flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-5 py-3 font-black text-white backdrop-blur transition hover:bg-white/20">
+              <a
+                href="#offers"
+                class="flex items-center gap-2 rounded-lg border border-white/15 bg-white/10 px-5 py-3 font-black text-white backdrop-blur transition hover:bg-white/20"
+              >
                 <i data-lucide="badge-percent" class="h-5 w-5"></i>
                 View Discounts
               </a>
             </div>
           </div>
           <div class="self-end pb-2">
-            <div class="grid gap-3 rounded-lg border border-white/15 bg-white/10 p-4 shadow-glow backdrop-blur-xl">
-              <div class="flex items-center justify-between rounded-lg bg-white p-4 text-ink">
+            <div
+              class="grid gap-3 rounded-lg border border-white/15 bg-white/10 p-4 shadow-glow backdrop-blur-xl"
+            >
+              <div
+                class="flex items-center justify-between rounded-lg bg-white p-4 text-ink"
+              >
                 <div>
                   <p class="text-sm font-bold text-black/45">Active learners</p>
                   <p class="text-3xl font-black">18.6K+</p>
@@ -166,7 +249,9 @@
       </section>
 
       <section class="border-b border-black/5 bg-white py-4">
-        <div class="mx-auto flex max-w-7xl gap-3 overflow-x-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="mx-auto flex max-w-7xl gap-3 overflow-x-auto px-4 sm:px-6 lg:px-8"
+        >
           <button data-filter="all" class="filter-btn active">All</button>
           <button data-filter="web" class="filter-btn">Web Development</button>
           <button data-filter="design" class="filter-btn">Design</button>
@@ -176,39 +261,75 @@
         </div>
       </section>
 
-      <section id="courses" class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+      <section
+        id="courses"
+        class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8"
+      >
+        <div
+          class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end"
+        >
           <div>
-            <p class="text-sm font-black uppercase tracking-[0.22em] text-gold">Course library</p>
-            <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">Choose your next skill</h2>
+            <p class="text-sm font-black uppercase tracking-[0.22em] text-gold">
+              Course library
+            </p>
+            <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">
+              Choose your next skill
+            </h2>
           </div>
           <div class="relative w-full md:max-w-sm">
-            <i data-lucide="search" class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-black/35"></i>
-            <input id="searchInput" class="w-full rounded-lg border border-black/10 bg-white py-3 pl-12 pr-4 font-semibold shadow-sm outline-none focus:border-gold" placeholder="Search courses" />
+            <i
+              data-lucide="search"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-black/35"
+            ></i>
+            <input
+              id="searchInput"
+              class="w-full rounded-lg border border-black/10 bg-white py-3 pl-12 pr-4 font-semibold shadow-sm outline-none focus:border-gold"
+              placeholder="Search courses"
+            />
           </div>
         </div>
-        <div id="courseGrid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+        <div
+          id="courseGrid"
+          class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        ></div>
       </section>
 
       <section id="offers" class="bg-ink py-14 text-white">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="mb-8 flex items-end justify-between gap-4">
             <div>
-              <p class="text-sm font-black uppercase tracking-[0.22em] text-gold">Hot discounts</p>
-              <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">Limited course deals</h2>
+              <p
+                class="text-sm font-black uppercase tracking-[0.22em] text-gold"
+              >
+                Hot discounts
+              </p>
+              <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">
+                Limited course deals
+              </h2>
             </div>
-            <i data-lucide="tags" class="hidden h-10 w-10 text-gold sm:block"></i>
+            <i
+              data-lucide="tags"
+              class="hidden h-10 w-10 text-gold sm:block"
+            ></i>
           </div>
           <div id="dealGrid" class="grid gap-5 md:grid-cols-3"></div>
         </div>
       </section>
 
-      <section id="free" class="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
+      <section
+        id="free"
+        class="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8"
+      >
         <div class="rounded-lg bg-white p-6 shadow-panel">
-          <p class="text-sm font-black uppercase tracking-[0.22em] text-mint">Free zone</p>
-          <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">Free courses are ready to enroll.</h2>
+          <p class="text-sm font-black uppercase tracking-[0.22em] text-mint">
+            Free zone
+          </p>
+          <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">
+            Free courses are ready to enroll.
+          </h2>
           <p class="mt-4 text-black/60">
-            Beginner der jonno free course ache. Enroll korar por dashboard e progress track hobe.
+            Beginner der jonno free course ache. Enroll korar por dashboard e
+            progress track hobe.
           </p>
           <div class="mt-6 grid grid-cols-3 gap-3">
             <div class="rounded-lg bg-[#eefaf6] p-4">
@@ -232,34 +353,59 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="mb-8 flex items-end justify-between gap-4">
             <div>
-              <p class="text-sm font-black uppercase tracking-[0.22em] text-fire">Sponsored ads</p>
-              <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">Useful student offers</h2>
+              <p
+                class="text-sm font-black uppercase tracking-[0.22em] text-fire"
+              >
+                Sponsored ads
+              </p>
+              <h2 class="mt-2 text-4xl font-black tracking-[-0.02em]">
+                Useful student offers
+              </h2>
             </div>
-            <button id="shuffleAds" class="flex items-center gap-2 rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-black transition hover:bg-ink hover:text-white">
+            <button
+              id="shuffleAds"
+              class="flex items-center gap-2 rounded-lg border border-black/10 bg-[#f7f3ea] px-4 py-3 font-black transition hover:bg-ink hover:text-white"
+            >
               <i data-lucide="shuffle" class="h-5 w-5"></i>
               Shuffle
             </button>
           </div>
-          <div id="adGrid" class="grid gap-5 md:grid-cols-2 lg:grid-cols-4"></div>
+          <div
+            id="adGrid"
+            class="grid gap-5 md:grid-cols-2 lg:grid-cols-4"
+          ></div>
         </div>
       </section>
 
       <footer class="bg-ink px-4 py-8 text-white sm:px-6 lg:px-8">
-        <div class="mx-auto flex max-w-7xl flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div
+          class="mx-auto flex max-w-7xl flex-col justify-between gap-4 md:flex-row md:items-center"
+        >
           <div>
             <p class="text-xl font-black">Utsho Academy</p>
-            <p class="text-sm text-white/55">Owner: Tanzim Ahmed Utsho | Running since 2023</p>
+            <p class="text-sm text-white/55">
+              Owner: Tanzim Ahmed Utsho | Running since 2023
+            </p>
           </div>
           <div class="flex gap-2">
-            <a class="footer-icon" href="#home" title="Home"><i data-lucide="home" class="h-5 w-5"></i></a>
-            <a class="footer-icon" href="#courses" title="Courses"><i data-lucide="book-open" class="h-5 w-5"></i></a>
-            <a class="footer-icon" href="#offers" title="Offers"><i data-lucide="gift" class="h-5 w-5"></i></a>
+            <a class="footer-icon" href="#home" title="Home"
+              ><i data-lucide="home" class="h-5 w-5"></i
+            ></a>
+            <a class="footer-icon" href="#courses" title="Courses"
+              ><i data-lucide="book-open" class="h-5 w-5"></i
+            ></a>
+            <a class="footer-icon" href="#offers" title="Offers"
+              ><i data-lucide="gift" class="h-5 w-5"></i
+            ></a>
           </div>
         </div>
       </footer>
     </main>
 
-    <div id="toast" class="pointer-events-none fixed bottom-5 left-1/2 z-50 hidden -translate-x-1/2 rounded-lg bg-ink px-5 py-3 text-sm font-bold text-white shadow-panel"></div>
+    <div
+      id="toast"
+      class="pointer-events-none fixed bottom-5 left-1/2 z-50 hidden -translate-x-1/2 rounded-lg bg-ink px-5 py-3 text-sm font-bold text-white shadow-panel"
+    ></div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="app.js"></script>

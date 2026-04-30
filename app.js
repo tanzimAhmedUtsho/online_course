@@ -111,17 +111,26 @@ const ads = [
 
 let selectedCategory = "all";
 let searchTerm = "";
+let authMode = "register";
 const enrolled = new Set(JSON.parse(localStorage.getItem("utsho_enrolled") || "[]"));
 
 const money = (value) => (value === 0 ? "Free" : `BDT ${value.toLocaleString("en-US")}`);
 const finalPrice = (course) => Math.round(course.price - course.price * (course.discount / 100));
+const getUsers = () => JSON.parse(localStorage.getItem("utsho_users") || "[]");
+const saveUsers = (users) => localStorage.setItem("utsho_users", JSON.stringify(users));
 
 function init() {
   const loggedIn = localStorage.getItem("utsho_logged_in") === "true";
-  if (loggedIn) unlockApp(localStorage.getItem("utsho_email") || "student@utsho.com");
+  const savedEmail = localStorage.getItem("utsho_email");
+  const savedUser = getUsers().find((user) => user.email === savedEmail);
+  if (loggedIn && savedUser) unlockApp(savedUser);
+  if (loggedIn && !savedUser) localStorage.removeItem("utsho_logged_in");
+  if (getUsers().length > 0) setAuthMode("login");
 
   document.getElementById("loginForm").addEventListener("submit", handleLogin);
   document.getElementById("logoutBtn").addEventListener("click", handleLogout);
+  document.getElementById("registerTab").addEventListener("click", () => setAuthMode("register"));
+  document.getElementById("loginTab").addEventListener("click", () => setAuthMode("login"));
   document.getElementById("searchInput").addEventListener("input", (event) => {
     searchTerm = event.target.value.toLowerCase();
     renderCourses();
@@ -146,20 +155,56 @@ function init() {
 
 function handleLogin(event) {
   event.preventDefault();
+  const name = document.getElementById("nameInput").value.trim();
   const email = document.getElementById("emailInput").value.trim();
   const password = document.getElementById("passwordInput").value.trim();
   const error = document.getElementById("loginError");
 
-  if (!email.includes("@") || password.length < 4) {
-    error.classList.remove("hidden");
+  if (!email.includes("@") || password.length < 4 || (authMode === "register" && name.length < 2)) {
+    showAuthError(authMode === "register" ? "Name, valid email and 4 character password diye register korun." : "Valid email and password din.");
+    return;
+  }
+
+  const users = getUsers();
+  const existingUser = users.find((user) => user.email === email);
+
+  if (authMode === "register") {
+    if (existingUser) {
+      showAuthError("Ei email already registered. Login tab theke login korun.");
+      setAuthMode("login");
+      return;
+    }
+
+    const user = { name, email, password };
+    users.push(user);
+    saveUsers(users);
+    setAuthMode("login");
+    document.getElementById("emailInput").value = email;
+    document.getElementById("passwordInput").value = "";
+    showToast("Registration complete. Ebar login korun");
+    return;
+  }
+
+  if (!existingUser) {
+    showAuthError("Ei email registered na. Age registration korun.");
+    setAuthMode("register");
+    return;
+  }
+
+  if (existingUser.password !== password) {
+    showAuthError("Password match koreni. Registered password diye try korun.");
     return;
   }
 
   error.classList.add("hidden");
+  completeAuth(existingUser, "Login successful");
+}
+
+function completeAuth(user, message) {
   localStorage.setItem("utsho_logged_in", "true");
-  localStorage.setItem("utsho_email", email);
-  unlockApp(email);
-  showToast("Welcome to Utsho Academy");
+  localStorage.setItem("utsho_email", user.email);
+  unlockApp(user);
+  showToast(message);
 }
 
 function handleLogout() {
@@ -169,10 +214,30 @@ function handleLogout() {
   showToast("Logged out");
 }
 
-function unlockApp(email) {
+function unlockApp(user) {
   document.getElementById("loginGate").classList.add("hidden");
   document.getElementById("app").classList.remove("opacity-0");
-  document.getElementById("studentName").textContent = email.split("@")[0];
+  document.getElementById("studentName").textContent = user.name || user.email.split("@")[0];
+}
+
+function setAuthMode(mode) {
+  authMode = mode;
+  const isRegister = mode === "register";
+  document.getElementById("registerTab").classList.toggle("active", isRegister);
+  document.getElementById("loginTab").classList.toggle("active", !isRegister);
+  document.getElementById("nameField").classList.toggle("hidden", !isRegister);
+  document.getElementById("nameInput").required = isRegister;
+  document.getElementById("authTitle").textContent = isRegister ? "Register first" : "Login required";
+  document.getElementById("authButtonText").textContent = isRegister ? "Create Account" : "Login & Unlock";
+  document.getElementById("authButtonIcon").setAttribute("data-lucide", isRegister ? "user-plus" : "log-in");
+  document.getElementById("loginError").classList.add("hidden");
+  refreshIcons();
+}
+
+function showAuthError(message) {
+  const error = document.getElementById("loginError");
+  error.textContent = message;
+  error.classList.remove("hidden");
 }
 
 function renderCourses() {
